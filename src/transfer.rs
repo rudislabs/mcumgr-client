@@ -1,14 +1,12 @@
-// Copyright © 2023-2024 Vouch.io LLC
+// Copyright © 2023-2024 Vouch.io LLC, 2026 Rudis Laboratories LLC
 
 use anyhow::{bail, Context, Error, Result};
 use base64::{engine::general_purpose, Engine as _};
 use byteorder::{BigEndian, ByteOrder, WriteBytesExt};
 use crc16::*;
-use hex;
 use lazy_static::lazy_static;
 use log::debug;
 use rand::{thread_rng, Rng};
-use serde_cbor;
 use serialport::SerialPort;
 use std::cmp::min;
 use std::io::Cursor;
@@ -30,7 +28,7 @@ pub struct SerialSpecs {
 
 fn read_byte(port: &mut dyn SerialPort) -> Result<u8, Error> {
     let mut byte = [0u8];
-    port.read(&mut byte)?;
+    port.read_exact(&mut byte)?;
     Ok(byte[0])
 }
 
@@ -119,7 +117,7 @@ pub fn encode_request(
 
 pub fn transceive(
     port: &mut dyn SerialPort,
-    data: &Vec<u8>,
+    data: &[u8],
 ) -> Result<(NmpHdr, serde_cbor::Value), Error> {
     // empty input buffer
     let to_read = port.bytes_to_read()?;
@@ -213,9 +211,9 @@ mod tests {
         let initial_id = next_seq_id();
         ids.insert(initial_id);
 
-        for _ in 0..std::u8::MAX {
+        for _ in 0..u8::MAX {
             let id = next_seq_id();
-            assert!(ids.insert(id), "Duplicate ID: {}", id);
+            assert!(ids.insert(id), "Duplicate ID: {id}");
         }
 
         // Check wrapping behavior

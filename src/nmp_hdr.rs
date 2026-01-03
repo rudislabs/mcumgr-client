@@ -1,8 +1,7 @@
-// Copyright © 2023-2024 Vouch.io LLC
+// Copyright © 2023-2024 Vouch.io LLC, 2026 Rudis Laboratories LLC
 
 use hex_buffer_serde::{Hex as _, HexForm};
 use byteorder::{BigEndian, ReadBytesExt, WriteBytesExt};
-use num;
 use num_derive::FromPrimitive;
 use serde::{Deserialize, Serialize};
 use std::io::Cursor;
