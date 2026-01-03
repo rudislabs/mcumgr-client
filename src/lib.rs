@@ -30,4 +30,4 @@ pub use crate::settings::{
 };
 pub use crate::shell::{shell_exec, shell_exec_transport};
 pub use crate::stat::{stat_list, stat_list_transport, stat_read, stat_read_transport};
-pub use crate::transfer::SerialSpecs;
+pub use crate::transfer::{ConnSpec, SerialSpecs, SerialTransport, Transport, UdpSpecs, UdpTransport};
