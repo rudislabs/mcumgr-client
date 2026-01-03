@@ -9,12 +9,12 @@ mod stat;
 mod test_serial_port;
 mod transfer;
 
-pub use crate::default::reset;
+pub use crate::default::{reset, reset_transport};
 pub use crate::fs::{
     download as fs_download, download_transport, hash as fs_hash, hash_transport,
     stat as fs_stat, stat_transport, upload as fs_upload, upload_transport,
 };
-pub use crate::image::{erase, list, test, upload};
+pub use crate::image::{erase, erase_transport, list, list_transport, test, test_transport, upload, upload_image_transport};
 pub use crate::nmp_hdr::{
     BootloaderInfoRsp, FsHashRsp, FsStatRsp, McumgrParamsRsp, SettingsReadRsp, ShellExecRsp,
     StatListRsp, StatReadRsp, TaskInfo, TaskStatRsp,
